@@ -18,7 +18,7 @@ async function config() {
         {
           rel: "icon",
           type: "image/jpg",
-          href: "/meta/tree.jpg",
+          href: "/blogs/meta/tree.jpg",
         },
       ],
       [
@@ -46,9 +46,9 @@ async function config() {
     // cleanUrls: "with-subfolders",
     lastUpdated: false,
     themeConfig: {
-      // repo: "clark-cui/homeSite",
-      logo: "/meta/tree.jpg",
-      avator: "/meta/witcher.png",
+    // repo: "clark-cui/homeSite",
+    logo: "/blogs/meta/tree.jpg",
+    avator: "/blogs/meta/witcher.png",
       search: {
         provider: "local",
       },

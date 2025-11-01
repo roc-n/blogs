@@ -19,7 +19,7 @@
     "vitepress": "1.6.3"
   },
   "scripts": {
-    "dev": "vitepress dev ",
+    "dev": "vitepress dev --port 3000",
     "build": "vitepress build ",
     "serve": "vitepress serve "
   },
