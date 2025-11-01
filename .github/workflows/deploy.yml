@@ -50,7 +50,7 @@ jobs:
 
       # 设置使用 Node.js 版本
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v2.1.4
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
 
@@ -74,14 +74,26 @@ jobs:
       - name: Build blogs project
         run: pnpm run build
 
-        # 资源拷贝
-      - name: Build with Jekyll
-        uses: actions/jekyll-build-pages@v1
-        with:
-          source: ./docs/.vitepress/dist
-          destination: ./_site
+      # 将构建产物统一准备到 ./_site（供 upload/deploy 使用）
+      - name: Prepare _site directory
+        run: |
+          # remove any previous _site
+          rm -rf ./_site
+          mkdir -p ./_site
+          # support both possible VitePress output locations used by different setups
+          if [ -d "./.vitepress/dist" ]; then
+            echo "Copying from ./.vitepress/dist -> ./_site"
+            cp -r ./.vitepress/dist/* ./_site/
+          elif [ -d "./docs/.vitepress/dist" ]; then
+            echo "Copying from ./docs/.vitepress/dist -> ./_site"
+            cp -r ./docs/.vitepress/dist/* ./_site/
+          else
+            echo "No build output found in ./.vitepress/dist or ./docs/.vitepress/dist"
+            ls -la || true
+            exit 1
+          fi
 
-        # 上传 _site 的资源，用于后续部署
+      # 上传 _site 的资源，用于后续部署
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
 
