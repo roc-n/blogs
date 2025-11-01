@@ -38,7 +38,7 @@ jobs:
     # node v20 运行
     strategy:
       matrix:
-        node-version: [20]
+        node-version: [18.x]
 
     steps:
       # 拉取代码
@@ -50,28 +50,29 @@ jobs:
 
       # 设置使用 Node.js 版本
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v2.1.4
         with:
           node-version: ${{ matrix.node-version }}
 
       # 使用 最新的 PNPM
       # 你也可以指定为具体的版本
-      - uses: pnpm/action-setup@v2
-        name: Install pnpm
-        with:
-          version: latest
-          # version: 9
-          run_install: false
+      # - uses: pnpm/action-setup@v2
+      #   name: Install pnpm
+      #   with:
+      #     version: latest
+      #     # version: 9
+      #     run_install: false
+
+      - name: Install pnpm
+        run: npm i pnpm -g       
 
         # 安装依赖
       - name: Install dependencies
-        run: pnpm install
+        run: pnpm i
 
         # 构建项目
-      - name: Build blog project
-        run: |
-          echo ${{ github.workspace }}
-          pnpm docs:build
+      - name: Build blogs project
+        run: pnpm run build
 
         # 资源拷贝
       - name: Build with Jekyll
