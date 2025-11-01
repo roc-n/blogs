@@ -5,9 +5,13 @@ import mathjax3 from "markdown-it-mathjax3";
 
 async function config() {
   return {
-    lang: "us-en",
-    title: "deemo",
-    description: "Home of deemo",
+  // base is the base URL the site will be deployed at.
+  // When deploying to GitHub Pages for a project site (https://<user>.github.io/<repo>/)
+  // set this to '/<repo>/' so static assets are resolved correctly.
+  base: "/blogs/",
+  lang: "us-en",
+  title: "deemo",
+  description: "Home of deemo",
     head: [
       [
         "link",
@@ -95,7 +99,7 @@ async function config() {
         dark: "vitesse-dark",
       },
       codeTransformers: [transformerTwoslash()],
-      config: (md) => {
+      config: (md: any) => {
         md.use(mathjax3);
       },
     },
