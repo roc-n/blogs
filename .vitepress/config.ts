@@ -18,7 +18,7 @@ async function config() {
         {
           rel: "icon",
           type: "image/jpg",
-          href: "/blogs/meta/tree.jpg",
+          href: "meta/tree.jpg",
         },
       ],
       [
@@ -46,9 +46,10 @@ async function config() {
     // cleanUrls: "with-subfolders",
     lastUpdated: false,
     themeConfig: {
-    // repo: "clark-cui/homeSite",
-    logo: "/blogs/meta/tree.jpg",
-    avator: "/blogs/meta/witcher.png",
+  // repo: "clark-cui/homeSite",
+  // use relative paths here so VitePress will resolve them with the `base`
+  logo: "meta/tree.jpg",
+  avator: "meta/witcher.png",
       search: {
         provider: "local",
       },
