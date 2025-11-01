@@ -42,6 +42,30 @@ async function config() {
           content: "Home of deemo",
         },
       ],
+      // Preconnect & load Dosis from Google Fonts so headings render consistently online
+      [
+        "link",
+        {
+          rel: "preconnect",
+          href: "https://fonts.googleapis.com",
+        },
+      ],
+      [
+        "link",
+        {
+          rel: "preconnect",
+          href: "https://fonts.gstatic.com",
+          crossorigin: "",
+        },
+      ],
+      [
+        "link",
+        {
+          rel: "stylesheet",
+          href:
+            "https://fonts.googleapis.com/css2?family=Dosis:wght@400;600;700&display=swap",
+        },
+      ],
     ],
     // cleanUrls: "with-subfolders",
     lastUpdated: false,
@@ -71,10 +95,10 @@ async function config() {
           text: "📃Archives",
           link: "/archives",
         },
-        {
-          text: "🔥RSS",
-          link: "https://clark-cui.top/feed.xml",
-        },
+        // {
+        //   text: "🔥RSS",
+        //   link: "https://clark-cui.top/feed.xml",
+        // },
       ],
       socialLinks: [
         { icon: "github", link: "https://github.com/roc-n" },
