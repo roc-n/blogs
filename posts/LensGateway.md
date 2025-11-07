@@ -52,3 +52,29 @@ logChan已满的情况下，一个次要功能（日志）的性能问题，导�
 针对这点更好的思路是让网关只负责快速地把日志吐到标准输出 (stdout)，然后由一个专门的**Log Shipper**进程去负责收集、磁盘缓冲和可靠发送。
 
 为了精简，考虑采用监控“丢弃”本身，后续引入Prometheus指标监控日志丢弃率。
+
+## 负载均衡
+
+### 后端服务节点健康检查
+
+在验证p2c负载均衡算法的健康检查时，出现并发问题：
+
+```go
+2025/11/07 14:43:50 Site unreachable, remove localhost:8082 from load balancer.
+2025/11/07 14:43:50 Site unreachable, remove localhost:8081 from load balancer.
+2025/11/07 14:43:50 Site unreachable, remove localhost:8081 from load balancer.
+2025/11/07 14:43:50 Site unreachable, remove localhost:9091 from load balancer.
+```
+
+检查发现nodes列表出现**重复节点**，而执行检查的代码片段本身并没有做**并发控制**：
+
+```go
+prev := as.ReadAlive(host)
+if !alive && prev {
+  log.Printf("Site unreachable, remove %s from load balancer.", host)
+  as.SetAlive(host, false)
+  bb.Remove(n)
+}
+```
+
+这里俩goroutine读取同一节点存活状态，在其中一个goroutine打印信息后SetAlive()之前，另一个goroutine的if语句判定为true从而执行打印，重复删除同一节点。
