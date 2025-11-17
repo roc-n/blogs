@@ -12,6 +12,7 @@ tags:
 
 计数器，一个累积量，只能递增或重置为0，类似里程计
 典型应用：
+
 - http请求数
 - 任务完成数
 - 错误总数
@@ -21,15 +22,17 @@ PromQL用法：`rate(http_requests_total[5m])`表示过去5分钟内每秒的htt
 
 仪表盘，一个能够任意上升或下降的数值，类似速度表
 典型应用：
+
 - 当前活跃的连接数
 - 当前内存使用量
 - CPU温度
 PromQL用法：配合`delta()/predict_linear()`表示一段时间内的变化/预测未来值
 
-###  Histogram
+### Histogram
 
 直方图，采样观测值，通过可配置的`bucket`来进行计数，桶里的数值代表区间的上界
 典型应用：
+
 - http请求延迟
 PromQL用法：
 - `http_request_duration_seconds_bucket{le="0.005"}`，请求延迟小于等于0.005s的总数
