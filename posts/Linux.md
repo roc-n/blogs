@@ -29,3 +29,9 @@ kill <pid>
 ```
 
 kill默认发送SIGTERM信号，还可以`-HUP`或`-INT`来向指定进程发送SIGHUP或SIGINT信号
+
+## 机制
+
+### 包装器命令
+
+`minikube kubectl -- <kubectl command>`这里的--作为选项结束的标志，后续所有参数都传递给kubectl命令。
