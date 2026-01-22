@@ -1,7 +1,7 @@
 ---
 title: go-zero
 description: 点滴拾遗
-date: 2026-01-22
+date: 2026-1-22
 tags:
   - Golang Web Framework
 ---
