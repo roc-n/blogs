@@ -3,7 +3,7 @@ title: Gin
 description: 点滴拾遗
 date: 2025-11-4
 tags:
-  - Gin
+  - Golang Web Framework
 ---
 
 ## Don’t trust all proxies
